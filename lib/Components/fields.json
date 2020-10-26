@@ -1,0 +1,106 @@
+[
+  {
+    "fieldId": 1,
+    "fieldTitle": "Jurisdictional",
+    "fieldConfig": {
+      "minline": 2,
+      "hint": "Jurisdictional name",
+      "tag": "<JurisdictionalNum>"
+    },
+    "fieldType": 1
+  },
+  {
+    "fieldId": 2,
+    "fieldTitle": "",
+    "fieldConfig": {
+      "height": 1,
+      "color": "ffffff"
+    },
+    "fieldType": 1
+  },
+  {
+    "fieldId": 3,
+    "fieldTitle": "Equipment Description",
+    "fieldConfig": {
+      "minline": 2,
+      "hint": "Equipment Description name",
+      "tag": "<equDesc>"
+    },
+    "fieldType": 1
+  },
+  {
+    "fieldId": 4,
+    "fieldTitle": "Equipment Type",
+    "fieldConfig": {
+      "items": [
+        {
+          "title": "PV",
+          "tag": "<equpv>"
+        },
+        {
+          "title": "Tank",
+          "tag": "<equtank>"
+        },
+        {
+          "title": "PP",
+          "tag": "<equpp>"
+        },
+        {
+          "title": "Other",
+          "tag": "<equother>"
+        }
+      ]
+    },
+    "fieldType": 2
+  },
+  {
+    "fieldId": 5,
+    "fieldTitle": "Equipment Type",
+    "fieldConfig": {
+      "items": [
+        {
+          "title": "PV",
+          "tag": "<equpv>"
+        },
+        {
+          "title": "Tank",
+          "tag": "<equtank>"
+        },
+        {
+          "title": "PP",
+          "tag": "<equpp>"
+        },
+        {
+          "title": "Other",
+          "tag": "<equother>"
+        }
+      ]
+    },
+    "fieldType": 3
+  },
+  {
+    "fieldId": 6,
+    "fieldTitle": "Inspection Methods",
+    "fieldConfig": {
+      "items": [
+        {
+          "title": "NDE",
+          "tag": "<Ins_nde>"
+        },
+        {
+          "title": "VE",
+          "tag": "<Ins_ve>"
+        },
+        {
+          "title": "VI",
+          "tag": "<Ins_vi>"
+        },
+        {
+          "title": "Prtl-VI",
+          "tag": "<Ins_prtl_vi>"
+        }
+      ]
+    },
+    "fieldType": 2
+  }
+]
