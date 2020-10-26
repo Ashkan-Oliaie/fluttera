@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:load/load.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:testapp/Components/FlashBar.dart';
 import 'package:testapp/Components/Loada.dart';
 import 'package:testapp/Components/Typo.dart';
 import 'package:hive/hive.dart';
@@ -14,7 +16,7 @@ import 'package:testapp/Hive/Hive.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
-
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class HomeScreen extends HookWidget {
 
@@ -22,11 +24,15 @@ class HomeScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
+    final visible = useState(false);
+
+
     fetchFromHive()async{
 
-      showCustomLoadingWidget(
-         Loada()
-      );
+      // showCustomLoadingWidget(
+      //    Loada()
+      // );
+      EasyLoading.show(status: 'loading...');
 
      try{
        var box= Hive.box<HiveEntry>('records');
@@ -64,16 +70,17 @@ class HomeScreen extends HookWidget {
      }catch(e){
       print(e);
      }
-
-      hideLoadingDialog();
+      EasyLoading.dismiss();
+      // hideLoadingDialog();
     };
 
     convertToExcel()async{
 
+      EasyLoading.show(status: 'loading...');
 
-      showCustomLoadingWidget(
-        Loada()
-      );
+      // showCustomLoadingWidget(
+      //   Loada()
+      // );
 
      try{
        CellStyle cellStyle = CellStyle(
@@ -132,12 +139,17 @@ class HomeScreen extends HookWidget {
        });
 
        var res = await Dia.post('uploadExcel',data: formData);
+
+       Flash(context,Typo(text:'Operation succeeded',color:Colors.black,size:15,bold:true), Color.fromRGBO(26, 186, 138, 1));
+
      }catch(e){
+       Flash(context,Typo(text:'Operation failed',color:Colors.black,size:15,bold:true), Colors.redAccent);
       print(e);
      }
 
-      hideLoadingDialog();
+      // hideLoadingDialog();
 
+      EasyLoading.dismiss();
     };
 
       useEffect((){
@@ -149,13 +161,15 @@ class HomeScreen extends HookWidget {
         child: Container(
           child: Scaffold(
             appBar: AppBar(
-                leading: GestureDetector(
-                  onTap: convertToExcel,
-                  child: Icon(
-                    Icons.upload_file,  // add custom icons also
-                  ),
-                ),
-                title:Typo(text:'اطلاعات',bold: true,size:20)
+
+              centerTitle: true,
+                // leading: GestureDetector(
+                //   onTap: convertToExcel,
+                //   child: Icon(
+                //     Icons.upload_file,  // add custom icons also
+                //   ),
+                // ),
+                title:Typo(text:'Records',bold: true,size:20,color: Colors.white,)
             ),
             body: StoreConnector(
               converter: (store) {
@@ -197,13 +211,47 @@ class HomeScreen extends HookWidget {
                     });
               },
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/addRecord');
-              },
-              tooltip: 'Increment',
-              child: Icon(Icons.add),
-            ), // This trailing comma ma
+            floatingActionButton: SpeedDial(
+              // both default to 16
+              marginRight: 18,
+              marginBottom: 20,
+              animatedIcon: AnimatedIcons.menu_close,
+              animatedIconTheme: IconThemeData(size: 22.0),
+              // this is ignored if animatedIcon is non null
+              // child: Icon(Icons.add),
+              // visible: visible.value,
+              // If true user is forced to close dial manually
+              // by tapping main button and overlay is not rendered.
+              closeManually: false,
+              curve: Curves.bounceIn,
+              overlayColor: Colors.black,
+              overlayOpacity: 0.5,
+              onOpen: () => print('OPENING DIAL'),
+              onClose: () => print('DIAL CLOSED'),
+              tooltip: 'Speed Dial',
+              heroTag: 'speed-dial-hero-tag',
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
+              elevation: 8.0,
+              shape: CircleBorder(),
+              children: [
+                SpeedDialChild(
+                    child: Icon(Icons.add),
+                    backgroundColor: Colors.red,
+                    label: 'Add new data',
+                    labelStyle: TextStyle(fontSize: 18.0),
+                    onTap: () => Navigator.pushNamed(context, '/addRecord')
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.upload_file),
+                  backgroundColor: Colors.blue,
+                  label: 'Upload excel file',
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: () => convertToExcel(),
+                ),
+
+              ],
+            ),// This trailing comma ma
           ),
     ));
   }

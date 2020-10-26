@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hive/hive.dart';
@@ -30,9 +31,10 @@ class AddRecord extends HookWidget {
 
     final request=()async{
       try{
-        showCustomLoadingWidget(
-            Loada()
-        );
+        // showCustomLoadingWidget(
+        //     Loada()
+        // );
+        EasyLoading.show(status: 'loading...');
         var data=await Dia.get('formData');
 
         final parsed = json.decode(data.toString());
@@ -41,7 +43,8 @@ class AddRecord extends HookWidget {
       }catch(e){
         Navigator.of(context).pop();
       }
-      hideLoadingDialog();
+      // hideLoadingDialog();
+      EasyLoading.dismiss();
     };
 
 
@@ -59,8 +62,10 @@ class AddRecord extends HookWidget {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               title: Typo(
-                text: 'افزودن داده',
+                color: Colors.white,
+                text: 'Add New Record',
                 bold: true,
                 size: 20,
               ),
@@ -78,9 +83,10 @@ class AddRecord extends HookWidget {
                         formTitle: 'لطفا اطلاعات مورد نظر را وارد کنید',
                         onSubmit: (values)async {
 
-                          showCustomLoadingWidget(
-                              Loada()
-                          );
+                          // showCustomLoadingWidget(
+                          //     Loada()
+                          // );
+                          EasyLoading.show(status: 'loading...');
 
                           var box =  Hive.box<HiveEntry>('records');
                           //
@@ -109,7 +115,8 @@ class AddRecord extends HookWidget {
 
                           clb(entry);
 
-                          hideLoadingDialog();
+                          EasyLoading.dismiss();
+                          // hideLoadingDialog();
                           Navigator.of(context).pop();
                           // var entry=Entry()
                           //

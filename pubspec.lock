@@ -260,6 +260,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.11"
+  flushbar:
+    dependency: "direct main"
+    description:
+      name: flushbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.10.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -279,6 +286,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.4"
+  flutter_easyloading:
+    dependency: "direct main"
+    description:
+      name: flutter_easyloading
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_form_builder:
     dependency: "direct main"
     description:
@@ -314,6 +328,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0"
+  flutter_speed_dial:
+    dependency: "direct main"
+    description:
+      name: flutter_speed_dial
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.5"
+  flutter_spinkit:
+    dependency: transitive
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.2+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter

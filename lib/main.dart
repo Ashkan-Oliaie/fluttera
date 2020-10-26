@@ -10,7 +10,7 @@ import 'package:testapp/Redux/Redux.dart';
 import 'package:testapp/Hive/Hive.dart';
 import 'package:load/load.dart';
 
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 
 void main() async {
@@ -26,14 +26,24 @@ void main() async {
 
   await Hive.openBox<HiveEntry>('records');
 
+  void configLoading() {
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..loadingStyle = EasyLoadingStyle.dark
+      ..indicatorSize = 45.0
+      ..radius = 10.0
+      ..progressColor = Colors.yellow
+      ..backgroundColor = Colors.green
+      ..indicatorColor = Colors.yellow
+      ..textColor = Colors.yellow
+      ..maskColor = Colors.blue.withOpacity(0.5)
+      ..userInteractions = true;
+  }
 
 
-  runApp(
-      LoadingProvider(
-          themeData: LoadingThemeData(
-            tapDismiss: false,
-          ),
-          child:MyApp() ));
+  runApp(MyApp() );
+  configLoading();
 }
 
 class MyApp extends StatelessWidget {
@@ -54,6 +64,10 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         onGenerateRoute: Nav.generateRoute,
+        builder: (BuildContext context, Widget child) {
+          /// make sure that loading can be displayed in front of all other widgets
+          return FlutterEasyLoading(child: child);
+        },
       ),
     );
   }

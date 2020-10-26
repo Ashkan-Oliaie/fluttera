@@ -73,6 +73,7 @@ reducer(state, action) {
 }
 
 
+
 class Forma extends HookWidget {
 
   // final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
@@ -94,6 +95,7 @@ class Forma extends HookWidget {
 
 
     final Size size = MediaQuery.of(context).size;
+
     // useEffect(() {
     //
     //   fields.forEach((element) {
@@ -130,7 +132,6 @@ class Forma extends HookWidget {
 
                         case 1:
 
-
                           return  Container(
                             margin: EdgeInsets.only(top:10),
                             child: Material(
@@ -149,6 +150,7 @@ class Forma extends HookWidget {
                                         color: Colors.black
                                     ),
                                     validators: [
+                                      FormBuilderValidators.required()
                                       // FormBuilderValidators.maxLength(11,errorText:'شماره تلفن اشتباه است'),
                                       // FormBuilderValidators.minLength(11,errorText:'شماره تلفن اشتباه است'),
                                     ],
@@ -191,7 +193,7 @@ class Forma extends HookWidget {
                                     attribute: "gender",
                                     decoration: InputDecoration(labelText: f['fieldTitle'], border:InputBorder.none,),
                                     // initialValue: 'Male',
-                                    hint: Typo(text:f['fieldConfig']['hint'] ?? 'انتخاب کنید'),
+                                    hint: Typo(text:f['fieldConfig']['hint'] ?? 'Choose one'),
                                     validators: [FormBuilderValidators.required()],
                                     items:f['fieldConfig']['items']
                                         .map<DropdownMenuItem>((item) =>
@@ -225,7 +227,7 @@ class Forma extends HookWidget {
                                     child: FormBuilderRadioGroup(
                                       orientation: GroupedRadioOrientation.wrap,
                                       decoration:
-                                      InputDecoration(labelText: 'My chosen language'),
+                                      InputDecoration(labelText: f['fieldTitle']),
                                       attribute: 'best_language',
                                       onChanged: (val){
                                         keya.currentState.setAttributeValue(f['fieldId'].toString(),val);
@@ -252,9 +254,9 @@ class Forma extends HookWidget {
                 ),
                 Container(
 
-                  margin: EdgeInsets.only(top:15),
+                  margin: EdgeInsets.only(top:0),
                   child: Touchable(
-                    caption:'ثبت',
+                    caption:'Save',
                     onPress:(){
                       var form=keya.currentState.value;
 
